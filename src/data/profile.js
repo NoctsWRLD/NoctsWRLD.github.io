@@ -21,17 +21,17 @@ export const profile = {
     'I build products end to end, and the parts I enjoy most are the ones that make them real — the database, the auth, the deploy.',
 
   intro:
-    'I am a student developer in Maribor, Slovenia, studying computer technician at Prometna šola Maribor while working full time. What I build ships: a Firebase-backed study planner, a React store with an Express and MongoDB API, a C# desktop movie catalogue, and a PHP site for buying used cars. I move between stacks because I would rather finish a product than stay inside one framework.',
+    'I am a student developer in Maribor, Slovenia, studying computer technician at Prometna šola Maribor. What I build ships: a Firebase-backed study planner, a React store with an Express and MongoDB API, a C# desktop movie catalogue, and a PHP site for buying used cars. I move between stacks because I would rather finish a product than stay inside one framework.',
 
   plate: [
     { label: 'Based', value: 'Maribor, Slovenia' },
     { label: 'Studying', value: 'Computer technician, Prometna šola Maribor' },
-    { label: 'Working', value: 'DARS D.D., Zgornje Gruškovje' },
+    { label: 'Focus', value: 'Full-stack web applications' },
     { label: 'Speaks', value: 'Slovenian, English (B2), Croatian (B2)' },
   ],
 
   about: [
-    'I am twenty, based in Maribor, and I work full time while studying. Most of my code is written late and quickly, which taught me to decide what to cut early and what is actually load-bearing.',
+    'I am twenty, based in Maribor, and I spend my evenings writing code while I study. Most of it gets written late and quickly, which taught me to decide what to cut early and what is actually load-bearing.',
     'What I reach for is unglamorous and specific: a schema that holds up, a login that actually hashes, a build that passes before I push it.',
   ],
 
@@ -55,12 +55,6 @@ export const profile = {
 
   experience: [
     {
-      org: 'DARS D.D.',
-      place: 'Zgornje Gruškovje, Slovenia',
-      period: 'Aug 2025 – Aug 2026',
-      role: 'Selling vignettes and road tolls',
-    },
-    {
       org: 'TRISO D.O.O.',
       place: 'Ptuj, Slovenia',
       period: '2023 – 2024',
@@ -75,7 +69,7 @@ export const profile = {
   ],
 
   experienceClosing:
-    'None of these are software roles. They paid for the laptop; the evenings paid for everything above.',
+    'Neither of these is a software role. They paid for the laptop; the evenings paid for everything above.',
 
   education: [
     {
@@ -87,7 +81,7 @@ export const profile = {
   ],
 
   contactLead:
-    'I am working and studying, so I answer messages in the evenings. If you have a role, a project, or a question about something I have built, I would like to hear about it.',
+    'I am studying and building, so I answer messages in the evenings. If you have a role, a project, or a question about something I have built, I would like to hear about it.',
 
   contactDetails: [
     { label: 'Email', value: 'jan.vidovic06@gmail.com', href: 'mailto:jan.vidovic06@gmail.com' },

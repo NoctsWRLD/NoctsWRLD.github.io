@@ -2,7 +2,7 @@
 
 > Student developer in Maribor, Slovenia. I build complete products across web, mobile and desktop — and the parts I enjoy most are the ones that make them real: the database, the auth, the deploy.
 
-This is the personal portfolio of Jan Vidovič, a student developer based in Maribor, Slovenia, currently studying computer technician at Prometna šola Maribor while working full time.
+This is the personal portfolio of Jan Vidovič, a student developer based in Maribor, Slovenia, currently studying computer technician at Prometna šola Maribor.
 
 ## What I work with
 
@@ -22,9 +22,10 @@ This is the personal portfolio of Jan Vidovič, a student developer based in Mar
 
 ## Experience
 
-- DARS D.D., Zgornje Gruškovje, Slovenia — Aug 2025 to Aug 2026. Selling vignettes and road tolls.
 - TRISO D.O.O., Ptuj, Slovenia — 2023 to 2024. Production work making rulers.
 - KOPIJANOVA D.O.O., Maribor, Slovenia — 2021. Hand-packing school material.
+
+Neither is a software role. They funded his own equipment.
 
 ## Education
 

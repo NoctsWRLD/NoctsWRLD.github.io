@@ -83,7 +83,7 @@ chart would misrepresent both.
 | 01 | Profile | Who he is, and three paragraphs on what he likes to work on |
 | 02 | Work | Four projects: SmartStudy, NSA_REACT, MovieDB, Odkup rabljenih vozil |
 | 03 | Stack | The calibration chart, and a spec sheet of what he works with |
-| 04 | Path | Three jobs, one programme of study |
+| 04 | Path | Two jobs, one programme of study |
 | 05 | Contact | Email, phone, GitHub, location, and a downloadable CV |
 
 Plus three legal routes: `/privacy`, `/imprint`, `/accessibility`.

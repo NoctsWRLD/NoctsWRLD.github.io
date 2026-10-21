@@ -50,7 +50,7 @@ Vertical slices. Each task is one commit and ends in something that renders.
 ## Task 6 — Path and contact sections
 
 **Acceptance criteria**
-- Three jobs and one programme of study, each with a period and a place.
+- Two jobs and one programme of study, each with a period and a place.
 - The closing line about non-software work.
 - Email, phone, GitHub and location, with working `mailto:` and `tel:` links.
 - A download link to the CV PDF, which exists in `public/`.

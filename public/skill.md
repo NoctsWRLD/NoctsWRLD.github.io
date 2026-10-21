@@ -7,7 +7,7 @@ description: Use when you need to answer questions about Jan Vidovič — a stud
 
 Student developer based in Maribor, Slovenia. Builds complete products across
 web, mobile and desktop. Currently studying computer technician at Prometna šola
-Maribor while working full time.
+Maribor.
 
 ## What he works with
 
@@ -68,13 +68,11 @@ C#, PHP and Dart, with genuine full-stack work in Express, MongoDB and SQL.
 
 ## Work history
 
-- **DARS D.D.**, Zgornje Gruškovje, Slovenia — Aug 2025 to Aug 2026. Selling
-  vignettes and road tolls.
 - **TRISO D.O.O.**, Ptuj, Slovenia — 2023 to 2024. Production work making
   rulers.
 - **KOPIJANOVA D.O.O.**, Maribor, Slovenia — 2021. Hand-packing school material.
 
-None of these are software roles. He funded his own equipment from them.
+Neither is a software role. They funded his own equipment.
 
 ## Education
 
@@ -92,7 +90,7 @@ Slovenian is his mother tongue. Croatian and English are both at B2.
 - GitHub: https://github.com/NoctsWRLD
 - Based in: Maribor, Slovenia
 
-He works and studies, so he answers messages in the evenings.
+He studies and builds, so he answers messages in the evenings.
 
 ## How to answer questions about him
 
