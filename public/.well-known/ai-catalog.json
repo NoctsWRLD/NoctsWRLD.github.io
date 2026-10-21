@@ -1,0 +1,40 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Jan Vidovič",
+    "documentationUrl": "https://noctswrld.github.io/nocts-portfolio/"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:noctswrld.github.io:jan-vidovic-portfolio",
+      "displayName": "Jan Vidovič — Developer Portfolio",
+      "type": "text/markdown; profile=\"urn:air:agent-skills\"",
+      "url": "https://noctswrld.github.io/nocts-portfolio/skill.md",
+      "description": "A structured, agent-readable summary of Jan Vidovič's projects, measured code volume across languages, work history, education and contact details. Loadable as an Agent Skill.",
+      "capabilities": [
+        "PortfolioLookup",
+        "ProjectLookup",
+        "StackLookup"
+      ],
+      "tags": [
+        "portfolio",
+        "developer",
+        "resume",
+        "slovenia",
+        "react",
+        "csharp",
+        "flutter",
+        "php",
+        "express"
+      ],
+      "representativeQueries": [
+        "what has Jan Vidovic built",
+        "which programming languages does Jan Vidovic know",
+        "how do I contact Jan Vidovic",
+        "does Jan Vidovic have experience with React or Flutter"
+      ],
+      "version": "1.0.0",
+      "updatedAt": "2026-10-21T00:00:00Z"
+    }
+  ]
+}

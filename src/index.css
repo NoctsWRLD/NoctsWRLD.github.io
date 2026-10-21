@@ -1,0 +1,306 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+/* ============================================================================
+   Instrument — design tokens
+   ----------------------------------------------------------------------------
+   Dark is the default. The light theme is a pure token swap: no component
+   changes, only the values below. Every component reads semantic tokens, never
+   a raw hex.
+
+   Contrast is checked at the token level, not the component level:
+     text-primary   on canvas        14.6:1  AAA
+     text-secondary on canvas         6.5:1  AA
+     text-muted     on canvas         5.1:1  AA
+     accent         on canvas         7.8:1  AAA
+     text-on-accent on accent         7.8:1  AAA
+     border-strong  on canvas         3.0:1  AA (UI boundary)
+   ========================================================================= */
+
+@layer theme {
+  :root {
+    /* ── Surfaces ───────────────────────────────────────────────────────── */
+    --surface-canvas: #12161c;
+    --surface-panel: #1a1f27;
+    --surface-raised: #222833;
+    --surface-sunken: #0d1015;
+
+    --border-subtle: #2e3743;
+    --border-strong: #5a6675;
+
+    /* ── Text ───────────────────────────────────────────────────────────── */
+    --text-primary: #e6e8e3;
+    --text-secondary: #98a1ae;
+    --text-muted: #7e8996;
+    --text-on-accent: #17130a;
+
+    /* ── Accent ─────────────────────────────────────────────────────────── */
+    --accent: #e0a03c;
+    --accent-hover: #eab35c;
+    --accent-quiet: #3a2c14;
+    --focus-ring: #e0a03c;
+
+    /* ── Type ───────────────────────────────────────────────────────────── */
+    --ff-display: 'Bricolage Grotesque', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --ff-body: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --ff-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    /* Modular scale, base 1rem, ratio ~1.25, with matched line heights. */
+    --text-xs: 0.75rem;
+    --text-xs-lh: 1.55;
+    --text-sm: 0.875rem;
+    --text-sm-lh: 1.6;
+    --text-base: 1rem;
+    --text-base-lh: 1.65;
+    --text-lg: 1.125rem;
+    --text-lg-lh: 1.6;
+    --text-xl: 1.25rem;
+    --text-xl-lh: 1.45;
+    --text-2xl: 1.5rem;
+    --text-2xl-lh: 1.35;
+    --text-3xl: clamp(1.55rem, 1.25rem + 1.4vw, 2.1rem);
+    --text-3xl-lh: 1.2;
+    --text-4xl: clamp(2.1rem, 1.5rem + 2.8vw, 3.25rem);
+    --text-4xl-lh: 1.05;
+
+    /* ── Space ──────────────────────────────────────────────────────────── */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+
+    /* ── Radius ─────────────────────────────────────────────────────────── */
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --radius-lg: 10px;
+    --radius-full: 999px;
+
+    /* ── Elevation ──────────────────────────────────────────────────────── */
+    --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-2: 0 8px 24px -10px rgb(0 0 0 / 0.65);
+
+    /* ── Motion ─────────────────────────────────────────────────────────── */
+    --duration-fast: 140ms;
+    --duration-base: 220ms;
+    --duration-slow: 360ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  }
+
+  /* Light theme — same semantic names, different values. */
+  [data-theme='light'] {
+    --surface-canvas: #f7f6f2;
+    --surface-panel: #ffffff;
+    --surface-raised: #efece5;
+    --surface-sunken: #ebe8e0;
+
+    --border-subtle: #dcd8ce;
+    --border-strong: #8a8578;
+
+    --text-primary: #17191c;
+    --text-secondary: #4d545c;
+    --text-muted: #676e76;
+    --text-on-accent: #ffffff;
+
+    --accent: #9a6207;
+    --accent-hover: #7d4f05;
+    --accent-quiet: #f6ead2;
+    --focus-ring: #9a6207;
+
+    --shadow-1: 0 1px 2px rgb(23 25 28 / 0.08);
+    --shadow-2: 0 10px 28px -12px rgb(23 25 28 / 0.22);
+  }
+}
+
+/* Map the semantic layer onto Tailwind utilities. `inline` keeps the var()
+   reference live, so a theme swap needs no rebuild. */
+@theme inline {
+  --color-canvas: var(--surface-canvas);
+  --color-panel: var(--surface-panel);
+  --color-raised: var(--surface-raised);
+  --color-sunken: var(--surface-sunken);
+  --color-line: var(--border-subtle);
+  --color-line-strong: var(--border-strong);
+  --color-ink: var(--text-primary);
+  --color-ash: var(--text-secondary);
+  --color-dim: var(--text-muted);
+  --color-brass: var(--accent);
+  --color-brass-hover: var(--accent-hover);
+  --color-brass-quiet: var(--accent-quiet);
+  --color-on-brass: var(--text-on-accent);
+
+  --font-display: var(--ff-display);
+  --font-body: var(--ff-body);
+  --font-mono: var(--ff-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-16: var(--space-16);
+  --spacing-20: var(--space-20);
+  --spacing-24: var(--space-24);
+
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+}
+
+/* ── Components ────────────────────────────────────────────────────────── */
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.15rem;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.2;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition:
+      background-color var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--text-on-accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .btn-secondary {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* A text link that does not shout: an underline that thickens on hover. */
+  .link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--duration-fast) var(--ease-standard);
+  }
+
+  .link:hover {
+    text-decoration-color: var(--accent);
+  }
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor targets must clear the sticky rail. */
+  scroll-padding-top: var(--space-8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--surface-canvas);
+  color: var(--text-primary);
+  font-family: var(--ff-body);
+  font-size: var(--text-base);
+  line-height: var(--text-base-lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* A single visible focus treatment everywhere. */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--text-on-accent);
+}
+
+/* Machine data only — never prose. */
+.mono {
+  font-family: var(--ff-mono);
+  font-variant-ligatures: none;
+  font-feature-settings: 'zero' 1;
+}
+
+/* Hairline that reads as a drawn rule, not a border. */
+.rule {
+  height: 1px;
+  background: var(--border-subtle);
+  border: 0;
+}
+
+/* Reveal on scroll — opacity and a short lift, nothing theatrical. */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--duration-slow) var(--ease-standard),
+    transform var(--duration-slow) var(--ease-standard);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Printing and full-page capture must never produce a blank page. */
+@media print {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
