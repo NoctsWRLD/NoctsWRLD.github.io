@@ -335,7 +335,9 @@ body {
 
 /* Arrival state. The transition is deliberately absent: the reveal is driven
    by the animation library, and a CSS transition here would fight it. The
-   `.is-visible` rule is the fallback if that never runs. */
+   `.is-visible` rule is the fallback if that never runs, and the state is
+   expressed as a class rather than an inline style so the print and
+   reduced-motion rules below can still override it. */
 .reveal {
   opacity: 0;
   transform: translateY(var(--motion-distance));
@@ -346,17 +348,39 @@ body {
   transform: none;
 }
 
+/* The printed byte value replaces the animated one on paper. */
+.count-print {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
-/* Printing and full-page capture must never produce a blank page. */
+/* Printing and full-page capture must never produce a blank page. The `!important`
+   is what beats the inline styles the animation library leaves behind. */
 @media print {
-  .reveal {
-    opacity: 1;
-    transform: none;
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* The chart is mid-animation on screen; on paper it must show its real
+     values, so each bar falls back to the width it is measured at. */
+  .bar {
+    width: var(--bar-final) !important;
+  }
+
+  .count-live {
+    display: none;
+  }
+
+  .count-print {
+    display: inline;
   }
 }

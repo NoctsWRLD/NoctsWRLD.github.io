@@ -36,6 +36,37 @@
 - Lighthouse mobile performance 97 → 94. Accessibility, best practices, SEO
   and agentic browsing are unchanged at 100.
 
+## Layout and navigation, 2026-10-21
+
+- [x] The address bar stays clean. A section link scrolls to its section and
+      then removes the hash, without pushing a history entry. The `href` stays
+      a real fragment so the link still works without JavaScript.
+- [x] A visitor arriving with a fragment still lands on the right section, and
+      the fragment is removed once they are there.
+- [x] Scroll animations replay. An element scrolled past resets to its hidden
+      state, and scrolling back replays its arrival. The chart resets to zero
+      and counts up again.
+- [x] The reset is expressed as a class, not an inline style, so the print and
+      reduced-motion rules can still override it. Printing shows the real byte
+      values and the real bar widths.
+- [x] With reduced motion the content is simply there: no reveal, no reset, no
+      movement, and the chart shows its measured values immediately.
+- [x] The four projects sit in a 2×2 grid on desktop. The work section drops
+      from 2431px to 1453px, and the page from 6300px to 5463px.
+- [x] Each card's link row is pinned to its bottom edge, so the extra height
+      in a shorter card is used rather than left as a void.
+
+## Still open
+
+- [ ] No profile photograph. The monogram plate stands in for one.
+- [ ] No LinkedIn profile URL, so the footer links to GitHub, email and phone.
+- [ ] The legal statements are accurate but not reviewed by a lawyer.
+- [ ] The accessibility statement is written by the site owner, not an audit.
+- [ ] WebMCP is not implemented: `navigator.modelContext` is unavailable in
+      Chromium 154, so the code could not be verified.
+- [ ] Only SmartStudy has a screenshot, so its card carries a figure and the
+      other three do not. Screenshots of the other three would even it out.
+
 ## Findings fixed during the build
 
 - [x] The scroll reveal left whole sections invisible when the observer did not

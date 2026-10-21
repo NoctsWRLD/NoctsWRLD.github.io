@@ -1,34 +1,48 @@
 import { useEffect } from 'react'
 import { animate, useReducedMotion } from 'motion/react'
-import { useInViewOnce } from '../hooks/useInViewOnce'
+import { useInView } from '../hooks/useInView'
+
+function motionDistance() {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue('--motion-distance')
+    .trim()
+  return raw.endsWith('px') ? raw.slice(0, -2) : raw
+}
 
 /**
  * Arrives its children when they scroll into view: a short lift and a fade,
  * decelerating on the "instrument" curve so the element settles rather than
  * springs.
  *
- * The reveal is an enhancement, never a gate on the content being visible.
- * Three things guarantee that: content already on screen is shown at once,
- * the observer shows it when it scrolls in, and a timeout shows it regardless.
- * If the animation itself fails, the fallback class makes it visible anyway.
+ * When the element is scrolled past, it resets to its hidden state, so
+ * scrolling back replays the arrival. The reset is instant — the element is
+ * off screen by then, and a fade-out would only be seen as a flicker on the
+ * way back in.
+ *
+ * The hidden state is expressed as a class, never as an inline style, so the
+ * print and reduced-motion rules can still override it.
+ *
+ * With reduced motion the content is simply there. No reveal, no reset, no
+ * movement at all — the thing to arrive at is the text, and the text is
+ * always present.
  */
 export function Reveal({ as: Tag = 'div', className = '', children, delay = 0 }) {
-  const [ref, inView] = useInViewOnce()
+  const [ref, active] = useInView()
   const reduce = useReducedMotion()
 
   useEffect(() => {
     const el = ref.current
-    if (!el || !inView) return
+    if (!el || reduce) return
 
-    if (reduce) {
-      el.classList.add('is-visible')
+    const distance = motionDistance()
+
+    if (!active) {
+      // Gone again — snap back to the hidden state.
+      el.classList.remove('is-visible')
+      el.style.removeProperty('opacity')
+      el.style.removeProperty('transform')
       return
     }
-
-    const raw = getComputedStyle(document.documentElement)
-      .getPropertyValue('--motion-distance')
-      .trim()
-    const distance = raw.endsWith('px') ? raw.slice(0, -2) : raw
 
     let controls
     try {
@@ -45,10 +59,10 @@ export function Reveal({ as: Tag = 'div', className = '', children, delay = 0 })
     }
 
     return () => controls?.stop()
-  }, [ref, inView, reduce, delay])
+  }, [ref, active, reduce, delay])
 
   return (
-    <Tag ref={ref} className={`reveal ${className}`}>
+    <Tag ref={ref} className={`reveal ${reduce ? 'is-visible' : ''} ${className}`}>
       {children}
     </Tag>
   )

@@ -13,11 +13,11 @@ export function Work() {
       title="Selected work"
       lede="Four projects that cover the range. Where the source is not published, the description stands on its own."
     >
-      <div className="space-y-5">
+      <div className="grid items-stretch gap-5 md:grid-cols-2">
         {projects.map((project) => (
-          <Reveal key={project.id}>
+          <Reveal key={project.id} className="h-full">
             <motion.article
-              className="card p-6 md:p-8"
+              className="card flex h-full flex-col p-6 md:p-8"
               whileHover={reduce ? undefined : { y: -3 }}
               transition={{ duration: 0.25, ease: [0.65, 0, 0.35, 1] }}
             >
@@ -63,7 +63,7 @@ export function Work() {
                 ))}
               </ul>
 
-              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-5">
+              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-5 md:mt-auto md:pt-7">
                 {project.links.map((link) => (
                   <a
                     key={link.href}

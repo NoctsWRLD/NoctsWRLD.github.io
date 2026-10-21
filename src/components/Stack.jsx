@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 'motion/react'
 import { authored, barWidth, formatBytes, generated, generatedNote, tooling } from '../data/stack'
-import { useInViewOnce } from '../hooks/useInViewOnce'
+import { useInView } from '../hooks/useInView'
 import { Reveal } from './Reveal'
 import { Section } from './Section'
 
@@ -11,35 +11,71 @@ const STAGGER = 0.07
 /**
  * Counts up to the real byte value while the bar draws. The number arrives
  * with the bar, and it always lands on the truth — with reduced motion it is
- * simply set to the final value.
+ * simply set to the final value. Scrolling past resets it to zero, so
+ * scrolling back replays the count.
  */
-function CountUp({ value, start, delay }) {
+function CountUp({ value, active, delay }) {
   const reduce = useReducedMotion()
   const progress = useMotionValue(0)
   const text = useTransform(progress, (v) => formatBytes(Math.round(v)))
 
   useEffect(() => {
-    if (!start) return
     if (reduce) {
-      progress.set(value)
+      progress.set(active ? value : 0)
+      return
+    }
+
+    if (!active) {
+      progress.set(0)
       return
     }
 
     const controls = animate(progress, value, { duration: 0.5, delay, ease: EASE })
     return () => controls.stop()
-  }, [start, value, delay, reduce, progress])
+  }, [active, value, delay, reduce, progress])
 
-  return <motion.span>{text}</motion.span>
+  return (
+    <>
+      <motion.span className="count-live">{text}</motion.span>
+      {/* The printed value is the real one, whatever the animation is doing. */}
+      <span className="count-print">{formatBytes(value)}</span>
+    </>
+  )
 }
 
 /**
  * The calibration chart. Each row plays in sequence: the bar draws to its
  * measured width, the byte count counts up in step with it, and the detail
  * line follows just behind. A scroll reads as an instrument calibrating.
+ *
+ * Scrolled past, the chart resets to zero, so scrolling back replays it.
  */
 function Bars({ rows, muted = false, baseDelay = 0 }) {
-  const [ref, inView] = useInViewOnce({ amount: 0.2 })
+  const [ref, active] = useInView()
   const reduce = useReducedMotion()
+  const bars = useRef([])
+
+  useEffect(() => {
+    rows.forEach((row, index) => {
+      const el = bars.current[index]
+      if (!el) return
+
+      const delay = baseDelay + index * STAGGER
+      const width = `${barWidth(row.bytes, rows)}%`
+
+      if (reduce) {
+        el.style.width = active ? width : '0%'
+        return
+      }
+
+      if (active) {
+        animate(el, { width }, { duration: 0.5, delay, ease: EASE })
+      } else {
+        // Gone again — snap back rather than animating the reversal.
+        animate(el, { width: '0%' }, { duration: 0 })
+      }
+    })
+  }, [active, reduce, rows, baseDelay])
 
   return (
     <ul className="mt-6 space-y-5" ref={ref}>
@@ -50,29 +86,26 @@ function Bars({ rows, muted = false, baseDelay = 0 }) {
             <div className="flex items-baseline justify-between gap-4">
               <span className="text-sm text-ink">{row.language}</span>
               <span className="mono text-xs text-dim tabular-nums">
-                <CountUp value={row.bytes} start={inView} delay={delay} />
+                <CountUp value={row.bytes} active={active} delay={delay} />
               </span>
             </div>
 
             <div className="mt-2 h-1.5 w-full bg-raised">
-              <motion.div
-                className={muted ? 'h-full bg-line-strong' : 'h-full bg-brass'}
-                initial={{ width: '0%' }}
-                animate={{ width: inView ? `${barWidth(row.bytes, rows)}%` : '0%' }}
-                transition={{
-                  duration: reduce ? 0 : 0.5,
-                  delay: reduce ? 0 : delay,
-                  ease: EASE,
+              <div
+                ref={(el) => {
+                  bars.current[index] = el
                 }}
+                className={`bar h-full ${muted ? 'bg-line-strong' : 'bg-brass'}`}
+                style={{ width: '0%', '--bar-final': `${barWidth(row.bytes, rows)}%` }}
               />
             </div>
 
             <motion.p
               className="mono mt-1.5 text-xs text-dim"
               initial={{ opacity: 0 }}
-              animate={{ opacity: inView ? 1 : 0 }}
+              animate={{ opacity: active ? 1 : 0 }}
               transition={{
-                duration: reduce ? 0 : 0.3,
+                duration: reduce ? 0 : active ? 0.3 : 0,
                 delay: reduce ? 0 : delay + 0.3,
                 ease: EASE,
               }}

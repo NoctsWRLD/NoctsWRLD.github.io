@@ -104,14 +104,34 @@ real values without counting up, the plate stops drifting, and page changes
 cut rather than cross-fade. The accessibility statement says so explicitly.
 
 **Asynchrony of the reveal.** The reveal is an enhancement, never a gate on
-content being visible. Three things guarantee it: content already on screen is
-shown at once, the observer shows it when it scrolls in, and a timeout shows it
-regardless.
+content being visible, and it is **not one-way**: an element that is scrolled
+past resets to its hidden state, so scrolling back replays its arrival. One
+rectangle calculation decides both directions, which keeps them consistent —
+an element cannot be "arrived" and "gone" at the same time, and the reset
+always happens strictly after the animation, never during it.
+
+The tracker is one shared scroll listener and one animation frame for the whole
+page rather than an observer per element, because a single measurement drives
+both directions.
+
+**The address bar stays clean.** A section link scrolls to its section and
+then removes the hash from the URL, so the address bar shows the page's
+address and nothing else. Nothing is pushed onto the history stack, so the
+back button still goes where the visitor expects. The `href` remains a real
+fragment, so the link works with JavaScript disabled, can be opened in a new
+tab, and can be copied. A visitor arriving with a fragment still lands on the
+right section, and the fragment is removed once they are there.
 
 **Layout** — a persistent left rail on desktop acting as a document index
 (number plus name, in reading order), content in a measured column that
 breaks wider for projects and the chart. Everything is left-aligned. The hero
 is an asymmetric split: the text at 60%, a monogram plate at 40%.
+
+The four projects sit in a **2×2 grid** on desktop rather than a single
+column. Stacked full-width, the work section was 2431px — 46% of the whole
+page — for four items. The grid brings it to 1453px. Cards in the same row
+match the tallest, and each card's link row is pinned to its bottom edge, so
+the extra height in a shorter card is used rather than left as a void.
 
 **The one memorable element** — a calibration chart of languages, where each
 bar is proportional to real code volume from the GitHub API and every row is

@@ -94,6 +94,16 @@ export default function App() {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
+  // A visitor arriving with a fragment still lands on the right section, but
+  // the hash is then removed so the address bar stays clean.
+  useEffect(() => {
+    const { hash } = window.location
+    if (!hash) return
+    const target = document.getElementById(hash.slice(1))
+    if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' })
+    window.history.replaceState(null, '', window.location.pathname + window.location.search)
+  }, [])
+
   return (
     <div className="min-h-screen bg-canvas text-ink">
       <AnimatePresence mode="wait" initial={false}>

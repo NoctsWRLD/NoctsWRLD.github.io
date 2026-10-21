@@ -1,6 +1,7 @@
 import { profile } from '../data/profile'
 import { Monogram } from './Monogram'
 import { Reveal } from './Reveal'
+import { SectionLink } from './SectionLink'
 
 export function Hero() {
   return (
@@ -12,12 +13,12 @@ export function Hero() {
             <p className="mt-7 max-w-[44ch] text-lg text-ash">{profile.lead}</p>
             <p className="mt-6 max-w-[56ch] text-base text-ash">{profile.intro}</p>
             <div className="mt-10 flex flex-wrap gap-3">
-              <a href="#work" className="btn btn-primary">
+              <SectionLink href="#work" className="btn btn-primary">
                 View the work
-              </a>
-              <a href="#contact" className="btn btn-secondary">
+              </SectionLink>
+              <SectionLink href="#contact" className="btn btn-secondary">
                 Get in touch
-              </a>
+              </SectionLink>
             </div>
           </Reveal>
         </div>

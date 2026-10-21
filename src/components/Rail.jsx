@@ -1,4 +1,5 @@
 import { nav } from '../data/profile'
+import { SectionLink } from './SectionLink'
 import { ThemeToggle } from './ThemeToggle'
 
 /**
@@ -21,7 +22,7 @@ export function Rail({ active, theme, onToggleTheme }) {
             const isActive = active === item.id
             return (
               <li key={item.id}>
-                <a
+                <SectionLink
                   href={`#${item.id}`}
                   aria-current={isActive ? 'true' : undefined}
                   className="group flex items-baseline gap-3"
@@ -40,7 +41,7 @@ export function Rail({ active, theme, onToggleTheme }) {
                   >
                     {item.label}
                   </span>
-                </a>
+                </SectionLink>
               </li>
             )
           })}
@@ -48,12 +49,12 @@ export function Rail({ active, theme, onToggleTheme }) {
 
         <div className="mt-auto space-y-5 pt-8">
           <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-          <a
+          <SectionLink
             href="#contact"
             className="mono block text-xs text-dim transition-colors hover:text-brass"
           >
             Get in touch
-          </a>
+          </SectionLink>
         </div>
       </nav>
 
@@ -65,12 +66,12 @@ export function Rail({ active, theme, onToggleTheme }) {
           <ul className="flex flex-1 items-center gap-5 overflow-x-auto">
             {nav.map((item, index) => (
               <li key={item.id} className="shrink-0">
-                <a href={`#${item.id}`} className="flex items-baseline gap-2">
+                <SectionLink href={`#${item.id}`} className="flex items-baseline gap-2">
                   <span className="mono text-xs text-dim tabular-nums">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <span className="text-sm text-ash">{item.label}</span>
-                </a>
+                </SectionLink>
               </li>
             ))}
           </ul>
