@@ -21,7 +21,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22+ is required: undici, pulled in by jsdom, uses APIs that
+          # do not exist on Node 20 and the vitest worker fails to start.
+          node-version: 24
           cache: npm
       # Must run before the build: base_path is '/' for a user/org site and
       # '/nocts-portfolio/' for a project site, so the repository name is
