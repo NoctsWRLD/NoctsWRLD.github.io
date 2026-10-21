@@ -65,12 +65,13 @@ is handed to a third party and nothing is render-blocking.
 The site targets both GitHub Pages and Vercel from one codebase.
 
 The Vite `base` comes from the environment and is normalised to a trailing
-slash, because the two targets have different path roots:
+slash, because a GitHub Pages *project* site and the root of a user site have
+different path roots:
 
 | Target | `base` | Set by |
 | --- | --- | --- |
-| Local, Vercel | `/` | unset |
-| GitHub Pages | `/nocts-portfolio/` | `actions/configure-pages` `base_path` |
+| Local, Vercel, the `github.io` user site | `/` | unset |
+| A GitHub Pages project site | `/<repo>/` | `actions/configure-pages` `base_path` |
 
 GitHub Pages serves files from disk, so an unknown path returns `404.html`
 rather than the app. The build emits a `404.html` that stashes the requested
@@ -80,7 +81,7 @@ refresh or a shared link.
 
 ```bash
 npm run build
-BASE_PATH=/nocts-portfolio/ npm run build   # as the Pages workflow does it
+BASE_PATH=/some-repo/ npm run build   # as a Pages project-site build does it
 ```
 
 Push to `main` and `.github/workflows/deploy.yml` builds and deploys to GitHub

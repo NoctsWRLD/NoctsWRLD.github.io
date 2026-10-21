@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://noctswrld.github.io/nocts-portfolio/sitemap.xml
+Sitemap: https://noctswrld.github.io/sitemap.xml

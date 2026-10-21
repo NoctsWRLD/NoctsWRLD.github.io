@@ -15,7 +15,7 @@ export const profile = {
 
   // The canonical origin of the deployed site. Used for canonical URLs, the
   // sitemap, and the structured data, so every absolute reference agrees.
-  siteUrl: 'https://noctswrld.github.io/nocts-portfolio',
+  siteUrl: 'https://noctswrld.github.io',
 
   lead:
     'I build products end to end, and the parts I enjoy most are the ones that make them real — the database, the auth, the deploy.',

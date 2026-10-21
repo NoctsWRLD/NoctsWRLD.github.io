@@ -5,7 +5,7 @@
       "identifier": "urn:air:noctswrld.github.io:jan-vidovic-portfolio",
       "displayName": "Jan Vidovič — Developer Portfolio",
       "type": "text/markdown; profile=\"urn:air:agent-skills\"",
-      "url": "https://noctswrld.github.io/nocts-portfolio/skill.md",
+      "url": "https://noctswrld.github.io/skill.md",
       "description": "A structured, agent-readable summary of Jan Vidovič's projects, measured code volume across languages, work history, education and contact details. Loadable as an Agent Skill.",
       "capabilities": [
         "PortfolioLookup",

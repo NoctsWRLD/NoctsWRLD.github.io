@@ -5,14 +5,14 @@ import { writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 // The base path must match the URL the app is served from:
-//   local dev and Vercel  -> /
-//   GitHub Pages project -> /nocts-portfolio/
-// It comes from the environment so the same codebase targets both.
+//   local dev, Vercel, and the github.io user site -> /
+//   a GitHub Pages *project* site               -> /<repo>/
+// It comes from the environment so the same codebase targets all of them.
 //
 // Vite keeps `base` verbatim in import.meta.env.BASE_URL. A base without a
 // trailing slash therefore produces a broken join in the router
-// ("/nocts-portfolio" + "privacy" -> "/nocts-portfolioprivacy"), so normalise
-// once here and use the same value everywhere.
+// ("/repo" + "privacy" -> "/repoprivacy"), so normalise once here and use the
+// same value everywhere.
 function normalizeBase(path) {
   if (!path) return '/'
   return path.endsWith('/') ? path : `${path}/`
