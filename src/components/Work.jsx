@@ -1,8 +1,11 @@
+import { motion, useReducedMotion } from 'motion/react'
 import { projects } from '../data/projects'
 import { Reveal } from './Reveal'
 import { Section } from './Section'
 
 export function Work() {
+  const reduce = useReducedMotion()
+
   return (
     <Section
       id="work"
@@ -13,7 +16,11 @@ export function Work() {
       <div className="space-y-5">
         {projects.map((project) => (
           <Reveal key={project.id}>
-            <article className="border border-line bg-panel p-6 md:p-8">
+            <motion.article
+              className="card p-6 md:p-8"
+              whileHover={reduce ? undefined : { y: -3 }}
+              transition={{ duration: 0.25, ease: [0.65, 0, 0.35, 1] }}
+            >
               <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                 <h3 className="font-display text-xl text-ink md:text-2xl">{project.name}</h3>
                 <span className="mono text-xs text-dim">{project.year}</span>
@@ -72,7 +79,7 @@ export function Work() {
                   <span className="mono text-xs text-dim">Source not published</span>
                 ) : null}
               </div>
-            </article>
+            </motion.article>
           </Reveal>
         ))}
       </div>

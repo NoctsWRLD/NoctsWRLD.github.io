@@ -92,6 +92,17 @@
     --duration-base: 220ms;
     --duration-slow: 360ms;
     --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    /* Long tail: the element settles rather than springs. This is the
+       "instrument" curve — used for anything that arrives. */
+    --ease-instrument: cubic-bezier(0.16, 1, 0.3, 1);
+    /* Symmetric: used for things that move between two states. */
+    --ease-mechanical: cubic-bezier(0.65, 0, 0.35, 1);
+    /* Accelerating away: used for exits. */
+    --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+    /* How far things travel. One scale, so every offset agrees. */
+    --motion-distance: 10px;
+    --motion-distance-sm: 6px;
+    --motion-distance-lg: 14px;
   }
 
   /* Light theme — same semantic names, different values. */
@@ -188,16 +199,34 @@
     transition:
       background-color var(--duration-fast) var(--ease-standard),
       border-color var(--duration-fast) var(--ease-standard),
-      color var(--duration-fast) var(--ease-standard);
+      color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-mechanical),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  /* Hover lifts it off the surface; the press pushes it back into it. A
+     control that does not respond to a click feels broken. */
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
   }
 
   .btn-primary {
     background: var(--accent);
     color: var(--text-on-accent);
+    box-shadow: var(--shadow-1);
   }
 
   .btn-primary:hover {
     background: var(--accent-hover);
+    box-shadow: var(--shadow-2);
+  }
+
+  .btn-primary:active {
+    box-shadow: none;
   }
 
   .btn-secondary {
@@ -208,19 +237,49 @@
   .btn-secondary:hover {
     border-color: var(--accent);
     color: var(--accent);
+    box-shadow: var(--shadow-1);
   }
 
-  /* A text link that does not shout: an underline that thickens on hover. */
+  .btn-secondary:active {
+    box-shadow: none;
+  }
+
+  /* A text link that does not shout: the underline brightens and gains weight
+     rather than appearing and disappearing. */
   .link {
     color: var(--accent);
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
     text-underline-offset: 3px;
-    transition: text-decoration-color var(--duration-fast) var(--ease-standard);
+    transition:
+      text-decoration-color var(--duration-base) var(--ease-mechanical),
+      text-decoration-thickness var(--duration-base) var(--ease-mechanical);
   }
 
   .link:hover {
     text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+  }
+
+  /* A project card. The border warms toward the accent on hover, so the
+     card acknowledges the pointer before it moves. */
+  .card {
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-panel);
+    transition: border-color var(--duration-base) var(--ease-mechanical);
+  }
+
+  .card:hover {
+    border-color: var(--accent);
+  }
+
+  /* The index number in the rail slides as the pointer moves along it. */
+  .rail-num {
+    transition: transform var(--duration-base) var(--ease-mechanical);
+  }
+
+  .group:hover .rail-num {
+    transform: translateX(2px);
   }
 }
 
@@ -274,13 +333,12 @@ body {
   border: 0;
 }
 
-/* Reveal on scroll — opacity and a short lift, nothing theatrical. */
+/* Arrival state. The transition is deliberately absent: the reveal is driven
+   by the animation library, and a CSS transition here would fight it. The
+   `.is-visible` rule is the fallback if that never runs. */
 .reveal {
   opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity var(--duration-slow) var(--ease-standard),
-    transform var(--duration-slow) var(--ease-standard);
+  transform: translateY(var(--motion-distance));
 }
 
 .reveal.is-visible {
@@ -292,7 +350,6 @@ body {
   .reveal {
     opacity: 1;
     transform: none;
-    transition: none;
   }
 }
 
@@ -301,6 +358,5 @@ body {
   .reveal {
     opacity: 1;
     transform: none;
-    transition: none;
   }
 }

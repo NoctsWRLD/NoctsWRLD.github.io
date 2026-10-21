@@ -62,7 +62,51 @@ shown as a measurement rather than asserted.
 **Type** — Display `Bricolage Grotesque`, body `Instrument Sans`, mono
 `JetBrains Mono`. All three self-hosted from `public/fonts/`, so there is no
 third-party request and nothing render-blocking. Monospace is for machine data
-only: byte counts, years, stack tags, paths. Prose is never monospace.
+only: byte counts, years, stack tags, paths. Prose is never monospace. The
+display face ships without its optical-size axis, which is 36 kB lighter and
+visually indistinguishable at the sizes used here.
+
+**Motion — "the instrument, being operated".** Precise, damped, mechanical.
+Not bouncy, not playful, not spring-loaded. The site reads as a precision
+instrument, so the movement reads as operating one.
+
+| Token | Curve | Used for |
+| --- | --- | --- |
+| `--ease-instrument` | `cubic-bezier(0.16, 1, 0.3, 1)` | anything that arrives — a long tail, so it settles rather than springs |
+| `--ease-mechanical` | `cubic-bezier(0.65, 0, 0.35, 1)` | movement between two states |
+| `--ease-exit` | `cubic-bezier(0.4, 0, 1, 1)` | accelerating away |
+| `--motion-distance` | `10px` | the travel distance, one scale so every offset agrees |
+
+Five rules, each with a reason:
+
+1. **A reveal is an arrival, not a decoration.** Content fades in with a 10px
+   lift on the instrument curve, staggered so a list reads as a sequence.
+2. **Hover is acknowledgement.** Depth, not colour alone: a project card lifts
+   3px and its border warms toward the accent; a button lifts 1px and presses
+   back into the surface by 1px; the rail's index number slides 2px right; a
+   link's underline gains weight.
+3. **The calibration chart is the signature moment.** Each row plays in
+   sequence — the bar draws to its measured width, the byte count counts up in
+   step with it, the detail line follows behind. Staggered 70ms per row. When
+   the two groups sit side by side, the generated one waits for the authored
+   one, so the reading order holds in motion too.
+4. **Exactly one scroll-linked element.** The monogram plate drifts 14px as the
+   hero leaves. Nothing else is scroll-linked. That restraint is the point.
+5. **Route changes cross-fade** with a 6px rise over 200ms.
+
+Implemented with the Motion library (`motion/react`), +47 kB gzipped. The
+alternative — CSS and IntersectionObserver alone — was measured at +34 kB for
+the chart and no hover or gesture support, so the library earns its place.
+
+**Reduced motion is a contract, not a preference.** Every animation has a
+`prefers-reduced-motion` path: reveals appear instantly, the chart shows its
+real values without counting up, the plate stops drifting, and page changes
+cut rather than cross-fade. The accessibility statement says so explicitly.
+
+**Asynchrony of the reveal.** The reveal is an enhancement, never a gate on
+content being visible. Three things guarantee it: content already on screen is
+shown at once, the observer shows it when it scrolls in, and a timeout shows it
+regardless.
 
 **Layout** — a persistent left rail on desktop acting as a document index
 (number plus name, in reading order), content in a measured column that

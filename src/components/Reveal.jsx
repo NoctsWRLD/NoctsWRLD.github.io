@@ -1,60 +1,51 @@
-import { useEffect, useRef } from 'react'
-
-const REVEAL_FALLBACK_MS = 5000
+import { useEffect } from 'react'
+import { animate, useReducedMotion } from 'motion/react'
+import { useInViewOnce } from '../hooks/useInViewOnce'
 
 /**
- * Reveals its children once they scroll into view: a short lift and fade.
+ * Arrives its children when they scroll into view: a short lift and a fade,
+ * decelerating on the "instrument" curve so the element settles rather than
+ * springs.
  *
  * The reveal is an enhancement, never a gate on the content being visible.
- * Three things guarantee that:
- *   1. An element already in the viewport on mount is shown immediately.
- *   2. The IntersectionObserver shows it when it scrolls in.
- *   3. A timeout shows it regardless, if neither of the above happens.
- *
- * Without the third, a broken or unsupported observer would leave whole
- * sections permanently invisible.
+ * Three things guarantee that: content already on screen is shown at once,
+ * the observer shows it when it scrolls in, and a timeout shows it regardless.
+ * If the animation itself fails, the fallback class makes it visible anyway.
  */
-export function Reveal({ as: Tag = 'div', className = '', children }) {
-  const ref = useRef(null)
+export function Reveal({ as: Tag = 'div', className = '', children, delay = 0 }) {
+  const [ref, inView] = useInViewOnce()
+  const reduce = useReducedMotion()
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || !inView) return
 
-    const show = () => el.classList.add('is-visible')
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      show()
+    if (reduce) {
+      el.classList.add('is-visible')
       return
     }
 
-    // Already on screen — no animation, no waiting.
-    const rect = el.getBoundingClientRect()
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      show()
-      return
+    const raw = getComputedStyle(document.documentElement)
+      .getPropertyValue('--motion-distance')
+      .trim()
+    const distance = raw.endsWith('px') ? raw.slice(0, -2) : raw
+
+    let controls
+    try {
+      controls = animate(
+        el,
+        {
+          opacity: [0, 1],
+          transform: [`translateY(${distance}px)`, 'translateY(0px)'],
+        },
+        { duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] },
+      )
+    } catch {
+      el.classList.add('is-visible')
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          show()
-          observer.disconnect()
-        }
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
-    )
-
-    observer.observe(el)
-
-    // Backstop: the content must never depend on the observer to be seen.
-    const fallback = setTimeout(show, REVEAL_FALLBACK_MS)
-
-    return () => {
-      observer.disconnect()
-      clearTimeout(fallback)
-    }
-  }, [])
+    return () => controls?.stop()
+  }, [ref, inView, reduce, delay])
 
   return (
     <Tag ref={ref} className={`reveal ${className}`}>

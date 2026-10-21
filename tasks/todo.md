@@ -10,6 +10,31 @@
 - [x] 8. Tests
 - [x] 9. Browser verification and critique
 - [x] 10. Performance, SEO and legal
+- [x] 11. Motion system — scroll reveals, hover and press feedback, the
+      calibration chart as the signature moment, hero drift, route transitions
+
+## Motion work, 2026-10-21
+
+- [x] Motion tokens: `--ease-instrument`, `--ease-mechanical`, `--ease-exit`,
+      `--motion-distance` and its two neighbours.
+- [x] `Reveal` now runs the animation library instead of a CSS transition, and
+      keeps all three visibility guarantees.
+- [x] The calibration chart draws its bars, counts its byte values up, and
+      reveals each detail line in sequence.
+- [x] Hover and press feedback on cards, buttons, rail numbers and links.
+- [x] The monogram plate drifts on scroll; the theme toggle icon turns.
+- [x] Route changes cross-fade.
+- [x] Every animation has a `prefers-reduced-motion` path, and the
+      accessibility statement now describes them specifically.
+- [x] Bricolage Grotesque dropped its optical-size axis: 36 kB lighter and
+      visually identical at the sizes used.
+
+## Measured cost
+
+- JavaScript 92 kB → 145 kB gzipped, for the animation engine.
+- Lighthouse desktop unchanged at 100 across all five categories.
+- Lighthouse mobile performance 97 → 94. Accessibility, best practices, SEO
+  and agentic browsing are unchanged at 100.
 
 ## Findings fixed during the build
 

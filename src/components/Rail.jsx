@@ -27,7 +27,7 @@ export function Rail({ active, theme, onToggleTheme }) {
                   className="group flex items-baseline gap-3"
                 >
                   <span
-                    className={`mono text-xs tabular-nums transition-colors ${
+                    className={`rail-num mono text-xs tabular-nums transition-colors ${
                       isActive ? 'text-brass' : 'text-dim group-hover:text-ash'
                     }`}
                   >

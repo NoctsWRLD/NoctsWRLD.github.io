@@ -4,9 +4,9 @@
 @font-face {
   font-family: 'Bricolage Grotesque';
   font-style: normal;
-  font-weight: 400 800;
+  font-weight: 400 700;
   font-display: swap;
-  src: url('/fonts/bricolage-grotesque-400_800.woff2') format('woff2');
+  src: url('/fonts/bricolage-grotesque-400_700.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Instrument Sans';

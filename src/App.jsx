@@ -1,4 +1,6 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
@@ -83,46 +85,64 @@ function NotFound({ theme, onToggleTheme }) {
 
 export default function App() {
   const [theme, toggleTheme] = useTheme()
+  const location = useLocation()
+  const reduce = useReducedMotion()
+
+  // Each route is its own document, so a route change starts at the top
+  // rather than wherever the previous page was scrolled to.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   return (
     <div className="min-h-screen bg-canvas text-ink">
-      <Routes>
-        <Route path="/" element={<Home theme={theme} onToggleTheme={toggleTheme} />} />
-        <Route
-          path="/privacy"
-          element={
-            <LegalPage
-              document={privacy}
-              theme={theme}
-              onToggleTheme={toggleTheme}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, y: reduce ? 0 : 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: reduce ? 0 : -6 }}
+          transition={{ duration: reduce ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Routes location={location}>
+            <Route path="/" element={<Home theme={theme} onToggleTheme={toggleTheme} />} />
+            <Route
               path="/privacy"
+              element={
+                <LegalPage
+                  document={privacy}
+                  theme={theme}
+                  onToggleTheme={toggleTheme}
+                  path="/privacy"
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/imprint"
-          element={
-            <LegalPage
-              document={imprint}
-              theme={theme}
-              onToggleTheme={toggleTheme}
+            <Route
               path="/imprint"
+              element={
+                <LegalPage
+                  document={imprint}
+                  theme={theme}
+                  onToggleTheme={toggleTheme}
+                  path="/imprint"
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/accessibility"
-          element={
-            <LegalPage
-              document={accessibility}
-              theme={theme}
-              onToggleTheme={toggleTheme}
+            <Route
               path="/accessibility"
+              element={
+                <LegalPage
+                  document={accessibility}
+                  theme={theme}
+                  onToggleTheme={toggleTheme}
+                  path="/accessibility"
+                />
+              }
             />
-          }
-        />
-        <Route path="*" element={<NotFound theme={theme} onToggleTheme={toggleTheme} />} />
-      </Routes>
+            <Route path="*" element={<NotFound theme={theme} onToggleTheme={toggleTheme} />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
 }

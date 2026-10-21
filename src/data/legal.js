@@ -83,7 +83,7 @@ export const accessibility = {
       body: [
         'Contrast meets AA on every text and background pairing, and the highest tiers exceed AAA. The values are fixed in one token file, so a change to the palette cannot silently break them.',
         'Everything is reachable and operable by keyboard, with a single visible focus indicator on every interactive element. Skip order follows the visual order.',
-        'Motion is opt-out: with prefers-reduced-motion enabled, transitions and scroll animation are disabled entirely.',
+        'Motion is opt-out. With prefers-reduced-motion enabled, the scroll reveals appear instantly instead of fading in, the calibration chart shows its real values without counting up, the monogram plate stops drifting, and a page change cuts rather than cross-fades. Nothing on the site moves without that preference being turned off.',
         'The layout reflows to 320 pixels wide without horizontal scrolling, and text scales with browser zoom up to 200 per cent.',
         'The page is built from real headings, landmarks, lists and definition lists, so it is navigable by screen reader and by reader mode.',
         'The dark and light themes are both checked for contrast, and the light theme is a token swap of the same values rather than a second design.',
