@@ -11,7 +11,7 @@ export const profile = {
   phoneHref: '+38641812148',
   github: 'https://github.com/NoctsWRLD',
   githubHandle: 'NoctsWRLD',
-  cv: '/Jan-Vidovič-Resume.pdf',
+  cv: '/Jan-Vidovic-CV.pdf',
 
   // The canonical origin of the deployed site. Used for canonical URLs, the
   // sitemap, and the structured data, so every absolute reference agrees.
@@ -38,7 +38,7 @@ export const profile = {
   likes: [
     {
       title: 'Front-ends that carry a real product',
-      body: 'SmartStudy is not a landing page. It has Firebase Auth, Firestore listeners that stay live across devices, a timetable imported from a photo with OCR, and a chat between classmates. The interface is the easy half — making it survive real data is the work.',
+      body: 'Scribe is not a landing page. It has Firebase Auth, Firestore listeners that stay live across devices, a timetable imported from a photo with OCR, and a chat between classmates. The interface is the easy half — making it survive real data is the work.',
     },
     {
       title: 'The server side of it',

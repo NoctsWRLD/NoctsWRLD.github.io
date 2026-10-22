@@ -15,7 +15,7 @@ This is the personal portfolio of Jan Vidovič, a student developer based in Mar
 
 ## Projects
 
-- [SmartStudy](https://smartstudyslo.vercel.app/): A study planner for school and university students. Subjects, tasks, a timetable imported from a photo with OCR, real-time chat with classmates, and flashcards. React 19, Vite, Tailwind CSS and Firebase. [Source](https://github.com/NoctsWRLD/SmartStudy)
+- [Scribe](https://scribeslo.vercel.app/): A study planner for school and university students. Subjects, tasks, a timetable imported from a photo with OCR, real-time chat with classmates, and flashcards. React 19, Vite, Tailwind CSS and Firebase. [Source](https://github.com/NoctsWRLD/Scribe)
 - [NSA_REACT](https://github.com/NoctsWRLD): A full-stack store — a React client over an Express API backed by MongoDB, with registration and login using bcrypt-hashed passwords, and product endpoints for listing and creating items. Source not published.
 - [MovieDB](https://github.com/NoctsWRLD): A desktop movie catalogue in C# with WPF — a Movie model, separate windows for adding and editing entries, and a settings screen. Source not published.
 - [Odkup rabljenih vozil](https://github.com/NoctsWRLD): A used-car marketplace in Slovenian. PHP over SQL with a shared database handler, and separate include files for registration, login and logout. Source not published.

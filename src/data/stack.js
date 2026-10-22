@@ -11,12 +11,12 @@ export const authored = [
   {
     language: 'JavaScript',
     bytes: 249377,
-    detail: 'SmartStudy, NSA_REACT, Spletna trgovina',
+    detail: 'Scribe, NSA_REACT, Spletna trgovina',
   },
   {
     language: 'CSS',
     bytes: 32031,
-    detail: 'NSA_REACT, SmartStudy, Spletna trgovina',
+    detail: 'NSA_REACT, Scribe, Spletna trgovina',
   },
   {
     language: 'C#',

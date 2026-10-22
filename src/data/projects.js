@@ -6,23 +6,23 @@
 
 export const projects = [
   {
-    id: 'smartstudy',
-    name: 'SmartStudy',
+    id: 'scribe',
+    name: 'Scribe',
     year: '2025 – present',
     kind: 'Web application',
     stack: ['React 19', 'Vite', 'Tailwind CSS', 'Firebase'],
-    body: 'A study planner for school and university students: subjects, tasks, a timetable you can import from a photo, a real-time chat with classmates, and flashcards. Firebase Auth for accounts and Firestore listeners so data stays live across devices. The interface and the copy are in Slovenian.',
+    body: 'A study planner for school and university students: subjects, tasks, a timetable you can import from a photo, a real-time chat with classmates, flashcards, and friends you find by a six-character code instead of by a name. Firebase Auth for accounts and Firestore listeners so data stays live across devices. The interface and the copy are in Slovenian.',
     image: {
       webp: 'smartstudy.webp',
       jpeg: 'smartstudy.jpg',
       width: 1120,
       height: 700,
-      alt: 'The SmartStudy login screen: a dark green panel with the headline on the left and the sign-in form on the right.',
-      caption: 'The sign-in screen at smartstudyslo.vercel.app',
+      alt: 'The Scribe login screen: the wordmark and a study rail on the left, the sign-in form on the right.',
+      caption: 'The sign-in screen at scribeslo.vercel.app',
     },
     links: [
-      { label: 'Live site', href: 'https://smartstudyslo.vercel.app/' },
-      { label: 'Source', href: 'https://github.com/NoctsWRLD/SmartStudy' },
+      { label: 'Live site', href: 'https://scribeslo.vercel.app/' },
+      { label: 'Source', href: 'https://github.com/NoctsWRLD/Scribe' },
     ],
     source: 'public',
   },
